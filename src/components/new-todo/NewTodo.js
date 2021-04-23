@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { todosState, alertState } from '../../store';
+import { useSetRecoilState } from 'recoil';
+import { todoSelector } from '../../store';
+import { useTodo } from '../../hooks/todo-hook';
 import './NewTodo.css';
 
-const UId = () => '_' + Math.random().toString(36).substr(2, 9);
 
 const NewTodo = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [label, setLabel] = useState('');
   const [note, setNote] = useState('');
-  const [todos, addNew] = useRecoilState(todosState);
-  const setAlertState = useSetRecoilState(alertState);
+  const setTodosState = useSetRecoilState(todoSelector);
+  const { fetchResults } = useTodo();
 
   const handleDateOnFocus = (event) => {
     const now = new Date().toISOString().split("T")[0];
@@ -20,18 +20,16 @@ const NewTodo = () => {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    addNew([
-      ...todos, {
-        id: UId(),
+    fetchResults();
+    setTodosState({
+      type: 'ADD_ITEM', payload: {
         date,
         time,
         label,
         note,
-      }]);
+      }
+    });
     handleClear();
-    setAlertState({
-      message: `Added ${label}`,
-    })
   }
 
   const handleClear = () => {

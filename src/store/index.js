@@ -1,9 +1,10 @@
 import themeState from './theme';
-import todosState from './todos';
-import alertState from './alert';
+import { todosState, todoSelector } from './todos';
+import {alertState, alertSelector} from './alert';
 
 export {
   themeState,
   todosState,
+  todoSelector,
   alertState
 };

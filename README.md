@@ -36,8 +36,8 @@ Pros:
 1. Easy to implement
 
 Cons:
-1. Cannot update another state
-2. Cannot create custom methods on atoms
+1. Cannot update another state via atoms
+2. Cannot create custom methods on atoms, have to use selector for the same
 3. Data persistance
 4. Dev tool
 

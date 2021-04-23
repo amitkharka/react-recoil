@@ -1,20 +1,20 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { todosState } from '../../store';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { todosState, todoSelector } from '../../store';
 import DELETE_ICON from '../../assets/icons/delete.svg';
 import './AllTodos.css';
 
 const AllTodos = () => {
   const todos = useRecoilValue(todosState);
-  // const removeTodo = useTodosStore(state => state.removeTodo);
-
+  const removeTodo = useSetRecoilState(todoSelector);
+  
   const renderTodo = (todo) => {
     return (
       <li key={todo.id} className="todo-item">
         <div className="todo-item__header">
           <span className="todo-item__date">{todo.date}</span>
           <span className="todo-item__time">{todo.time}</span>
-          <button type="button" className="todo-item__delete">
+          <button type="button" className="todo-item__delete" onClick={() => removeTodo({ type: 'DELETE', payload: todo.id })}>
             <img src={DELETE_ICON} alt="delete" />
           </button>
         </div>
